@@ -1,0 +1,25 @@
+.login-view {
+	display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    .login-page {
+    	width: 50%;
+    	.button-div {
+    		display: flex;
+    		justify-content: center;
+    		button {
+				span {
+					background-image: url('../../assets/images/loader.svg');
+				    height: 20px;
+				    width: 20px;
+				    display: inline-block;
+				    background-repeat: no-repeat;
+				    background-size: 100%;
+				    position: relative;
+				    top: 4px;
+				}
+			}
+    	}
+    }
+}
