@@ -1,9 +1,30 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
+import { connect,useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from "react-router-dom";
+import {
+    LOGOUT,
+    CLEAR_LOGOUT
+} from "../../constants/actionTypes";
+const mapStateToProps = (state) => ({
+  ...state,
+  currentUser: state.common.currentUser,
+  redirectTo: state.common.redirectTo,
+});
 
-const Header = () => {
+const mapDispatchToProps = (dispatch) => ({
+   onSignOut: () => { dispatch({ type: LOGOUT }) },
+});
+
+const Header = (props) => {
+
+    const { appLoaded, onSignOut, currentUser, onLoad, onAppLoad, redirectTo, emptyRedirect } = props;
+
+
+    const logout = () => {
+      onSignOut();
+    };
+
     return (
         <div>
       <nav className='navbar navbar-expand-lg bg-light'>
@@ -27,12 +48,22 @@ const Header = () => {
               <li className='nav-item'>
                 <Link className='nav-link' to="/">Home</Link>
               </li>
-              <li className='nav-item'>
-                <Link className='nav-link' to="/register">Register</Link>
-              </li>
-              <li className='nav-item'>
-                <Link className='nav-link' to="/login">Login</Link>
-              </li>
+              {(!currentUser)?
+                (
+                  <>
+                    <li className='nav-item'>
+                      <Link className='nav-link' to="/register">Register</Link>
+                    </li>
+                    <li className='nav-item'>
+                      <Link className='nav-link' to="/login">Login</Link>
+                    </li>
+                  </>):
+                  <> 
+                    <li className='nav-item'>
+                      <Link className='nav-link' onClickCapture={logout}>Logout</Link>
+                    </li>
+                  </>
+              }
             </ul>
           </div>
         </div>
@@ -40,6 +71,5 @@ const Header = () => {
     </div>
     );
 }
-const mapStateToProps = (state) => {}
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps,mapDispatchToProps)(Header);

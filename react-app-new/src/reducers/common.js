@@ -37,10 +37,9 @@ export default (state = defaultState, action) => {
         ...state,
         appLoaded: true,
         currentUser:
-          action.payload && action.payload.data && action.payload.data.user
-            ? action.payload.data.user
-            : null,
-        clubData: action.payload && action.payload.data && action.payload.data.clubData ? action.payload.data.clubData: null,    
+          action.payload && action.payload.data && action.payload.data
+            ? action.payload.data
+            : null,   
       };
     case REDIRECT:
       return { ...state, redirectTo: "/" };
